@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orquestrador</title>
+    <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>BOT AGENDADODOS</h1>
+    <div id="agem"></div>
+    
+
+    <script>
+        const agem = document.getElementById("agem");
+
+    function carregarAgendamentos() {
+      fetch('http://localhost:10000/v1/agendamentos')
+        .then(response => response.json())
+        .then(data => {
+          console.log("Carregando agendamentos...");
+
+          let tabela = '<table border="1">';
+          tabela += "<thead><tr><th>Id</th><th>Nome</th><th>Status</th></tr></thead><tbody>";
+
+          data.forEach(e => {
+            tabela += `
+              <tr>
+                <td>${e.id}</td>
+                <td>${e.nome}</td>
+                <td>${e.status}</td>
+              </tr>
+            `;
+          });
+
+          tabela += "</tbody></table>";
+          agem.innerHTML = tabela;
+        })
+        .catch(error => {
+          console.error('Erro:', error);
+        });
+    }
+
+    // Carregar ao abrir a página
+    carregarAgendamentos();
+
+    // Conectar ao servidor WebSocket
+    const socket = io('http://localhost:10000');
+
+    socket.on('connect', () => {
+      console.log('Conectado ao Socket.IO');
+    });
+
+    socket.on('dados_atualizados', () => {
+      console.log('Recebi aviso de atualização! Recarregando tabela...');
+      carregarAgendamentos();
+    });
+
+</script>
+
+</body>
+</html>
