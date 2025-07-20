@@ -13,7 +13,6 @@ const io = new Server(server, {cors: {origin: "*", }});
 
 ConfigSocket(io)
 app.set("io", io)
-
 server.listen(port, () =>{
    console.log("http://localhost:" +  port);
     

@@ -1,0 +1,7 @@
+{
+    "dados" : [
+        {"id" : 1, "nome" : "rpa_teste", "tipo" : ["Diariamente"],"maquina" : "197.168.17.28"},
+        {"id" : 2, "nome" : "rpa_teste1", "tipo" : ["Segunda","Terca","Domingo"],"maquina" : "197.168.17.28"},
+        {"id" : 3, "nome" : "rpa_teste2", "tipo" : ["Domingo"],"maquina" : "197.168.17.28"}
+    ]
+}

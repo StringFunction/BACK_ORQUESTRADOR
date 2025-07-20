@@ -1,19 +1,31 @@
-{
-  "dados": [
-    {
-      "id": "1",
-      "nome": "rpa_corno",
-      "status": "calcinha"
-    },
-    {
-      "id": "2",
-      "nome": "rpa_cor",
-      "status": "deu bom"
-    },
-    {
-      "id": "3",
-      "nome": "rpa_co",
-      "status": "executado"
-    }
-  ]
-}
+[
+  {
+    "id": 1,
+    "nome": "rpa_teste",
+    "tipo": [
+      "Diariamente"
+    ],
+    "maquina": "197.168.17.28",
+    "status": "dormindo"
+  },
+  {
+    "id": 2,
+    "nome": "rpa_teste1",
+    "tipo": [
+      "Segunda",
+      "Terca",
+      "Domingo"
+    ],
+    "maquina": "197.168.17.28",
+    "status": "triste"
+  },
+  {
+    "id": 3,
+    "nome": "rpa_teste2",
+    "tipo": [
+      "Domingo"
+    ],
+    "maquina": "197.168.17.28",
+    "status": "dormindo"
+  }
+]
