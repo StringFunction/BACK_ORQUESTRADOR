@@ -15,10 +15,12 @@
         const agem = document.getElementById("agem");
 
     function carregarAgendamentos() {
-      fetch('http://localhost:10000/v1/agendamentos')
+      fetch('http://localhost:10000/v1/botagendados')
         .then(response => response.json())
         .then(data => {
           console.log("Carregando agendamentos...");
+          console.log(data);
+          
 
           let tabela = '<table border="1">';
           tabela += "<thead><tr><th>Id</th><th>Nome</th><th>Status</th></tr></thead><tbody>";

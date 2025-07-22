@@ -1,4 +1,3 @@
-const { log } = require("console")
 const express =  require("express")
 const rota = express.Router()
 const caminho = "bots_agendador.json"
@@ -6,17 +5,12 @@ const bot = "bot.json"
 const fs = require("fs")
 
 rota.post("/notificacao", (req,res) => {
-    let registro = JSON.parse(fs.readFileSync(caminho, 'utf-8'));
-    const io = req.app.get("io");
-
-   
+    console.log("Recendo notificao bot", req.body.id);
     
+    let registro = JSON.parse(fs.readFileSync(caminho, 'utf-8'));
+    const io = req.app.get("io");  
     verificar = registro.find((e) => e.id == req.body.id)
     console.log(registro);
-    
-    
-
-    
     if (!!verificar){
         registro.forEach(e => {
             if(e.id == req.body.id){
@@ -44,14 +38,11 @@ rota.get("/agendados", (req,res) => {
     };
 
     let bots = JSON.parse(fs.readFileSync(bot, 'utf-8'));
-
     const resultados = bots.dados.filter(e => 
     e.tipo.some(tipo => 
         lista_Semana[dia_Semana].includes(tipo) || tipo === "Diariamente"
     )
     );
-
-
     //SALVAR BOT PARA EXECUTAR HJ 
     resultados.forEach(e => {
         e.status = "dormindo"
@@ -60,6 +51,11 @@ rota.get("/agendados", (req,res) => {
     res.status(200).send("condo do forro")
 
   
+})
+
+rota.get("/botagendados", (req,res) =>{
+    lendoArquivo = JSON.parse(fs.readFileSync(caminho, 'utf-8'))
+    res.status(200).send(lendoArquivo)
 })
 
 // rota.post("/agendarbot", (req,res) => {

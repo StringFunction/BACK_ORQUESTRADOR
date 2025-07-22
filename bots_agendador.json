@@ -17,15 +17,6 @@
       "Domingo"
     ],
     "maquina": "197.168.17.28",
-    "status": "triste"
-  },
-  {
-    "id": 3,
-    "nome": "rpa_teste2",
-    "tipo": [
-      "Domingo"
-    ],
-    "maquina": "197.168.17.28",
-    "status": "dormindo"
+    "status": "Bot_Falha"
   }
 ]
