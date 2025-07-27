@@ -1,0 +1,23 @@
+{
+  "maquina": [
+    {
+      "id": 802998,
+      "chave": "79ae88b2-83c0-4697-858b-d7450776824e",
+      "Status": true,
+      "maquina": "192.168.145"
+    },
+    {
+      "id": 749811,
+      "chave": "89413870-1521-4a39-be75-66cb7c241ae5",
+      "Status": true,
+      "maquina": "192.168.145"
+    },
+    {
+      "id": 941001,
+      "Empresa": "teste",
+      "Maquina": "192.168.145",
+      "chave": "4b469a04-039c-4d66-83c5-c45a5c1e1977",
+      "Status": true
+    }
+  ]
+}

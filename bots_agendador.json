@@ -7,16 +7,5 @@
     ],
     "maquina": "197.168.17.28",
     "status": "dormindo"
-  },
-  {
-    "id": 2,
-    "nome": "rpa_teste1",
-    "tipo": [
-      "Segunda",
-      "Terca",
-      "Domingo"
-    ],
-    "maquina": "197.168.17.28",
-    "status": "Bot_Falha"
   }
 ]

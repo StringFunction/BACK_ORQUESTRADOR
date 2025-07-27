@@ -4,13 +4,17 @@ const caminho = "bots_agendador.json"
 const bot = "bot.json"
 const fs = require("fs")
 
+const path = require("path");
+
+
 rota.post("/notificacao", (req,res) => {
     console.log("Recendo notificao bot", req.body.id);
-    
-    let registro = JSON.parse(fs.readFileSync(caminho, 'utf-8'));
     const io = req.app.get("io");  
+    //Lendo Arquivo Json
+    let registro = JSON.parse(fs.readFileSync(caminho, 'utf-8'));
+    //Vericando se tem bot
     verificar = registro.find((e) => e.id == req.body.id)
-    console.log(registro);
+    console.log("Automação localizada",registro);
     if (!!verificar){
         registro.forEach(e => {
             if(e.id == req.body.id){
@@ -52,6 +56,7 @@ rota.get("/agendados", (req,res) => {
 
   
 })
+
 
 rota.get("/botagendados", (req,res) =>{
     lendoArquivo = JSON.parse(fs.readFileSync(caminho, 'utf-8'))
