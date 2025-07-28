@@ -9,9 +9,9 @@ const JsonCadastro = path.join(__dirname, "TabelaMaquinas.json")
 
 
 //Cadastrar maquina
-rota.post("/CadastraMaquina", (req,res)=> {
+rota.post("/cadastraempresa", (req,res)=> {
     const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-    console.log("Maquina fazendo novo cadastro", ip);
+    console.log("Solicitacao de cadastro de empresa", ip);
     //Lendo arquivo json temporario
     const filePath = path.join("TabelaMaquinas.json");
     const openJsonCadastraMaquina = JSON.parse(fs.readFileSync(filePath, "utf8"));
@@ -31,9 +31,12 @@ rota.post("/CadastraMaquina", (req,res)=> {
         } while (openJsonCadastraMaquina.maquina.some(e => e.key === hash));
         console.log(hash);
         let dados = {
-            "id" : Math.floor(Math.random() * 1254678),
-            "Empresa" : Empresa,
-            "Maquina" : ip_maquina,
+            "id" : "Cnpj",
+            "Nome" : "Nome",
+            "email" : "Email",
+            "Telefone" : "telefone",
+            "Responsavel" : "",
+            "Endereco" : "",
             "chave" : hash,
             "Status" : true
         }
@@ -45,6 +48,9 @@ rota.post("/CadastraMaquina", (req,res)=> {
         
     }
 
+})
+rota.get("/", (req,res) => {
+    //Consulta dados
 })
 
 

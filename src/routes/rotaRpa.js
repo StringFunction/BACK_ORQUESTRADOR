@@ -1,5 +1,5 @@
 const app = require("../app")
-const ControllerRpp = require("../Controller/ControlleRpp")
+const ControllerRpp = require("../Controller/ControllerCadastroEmpresa")
 
 
 
