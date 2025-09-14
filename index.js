@@ -6,15 +6,19 @@ const port = process.env.PORT || 10000
 const {Server} = require("socket.io")
 const path = require("path")
 const fs = require("fs")
-const routesDir = path.join(__dirname, "src", "routes");
-console.log(routesDir);
+require('dotenv').config()
+require("./src/config/database")
 
 
-fs.readdirSync(routesDir).forEach(file => {
-   console.log(path.join(routesDir, file));
+// const routesDir = path.join(__dirname, "src", "routes");
+// fs.readdirSync(routesDir).forEach(file => {
+//    console.log(path.join(routesDir, file));
    
-  require(path.join(routesDir, file));
-});
+//   require(path.join(routesDir, file));
+// });
+
+
+
 app.get("/", (req,res) => {
    res.sendFile(path.join(__dirname,"index.html"))
 })
