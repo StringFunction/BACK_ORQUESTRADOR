@@ -7,7 +7,7 @@ const {Server} = require("socket.io")
 const path = require("path")
 const fs = require("fs")
 require('dotenv').config()
-require("./src/config/database")
+require("./src/config/SincronizacaoBanco")
 
 
 // const routesDir = path.join(__dirname, "src", "routes");

@@ -8,10 +8,7 @@ const {DataTypes, DATEONLY} = require("sequelize")
 
 
 const Empresa = sequelize.define("Empresa", {
-    id: {
-        type : DataTypes.INTEGER,
-        autoIncrement: true,
-    },
+
     cnpj : {
         type : DataTypes.STRING,
         primaryKey: true,
@@ -60,13 +57,5 @@ const Empresa = sequelize.define("Empresa", {
 {
      timestamps: false,
 })
-Empresa.sync().then(() => {
-    console.log("Tabela empresa sincronizada com sucesso");
-    
-}).catch((erro) => {
-    console.log(erro);
-    
-})
-
 
 module.exports = Empresa

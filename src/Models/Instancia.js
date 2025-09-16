@@ -4,17 +4,21 @@ const {DataTypes, DATEONLY} = require("sequelize")
 const Empresa  = require("./Empresa")
 
 
-const Instancia = sequelize.difene("Instacias", {
+const Instancia = sequelize.define("Instacias", {
     id_instancia : {
-        types: DataTypes.INTEGER,
-         autoIncrement: true,
+        type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+            allowNull: false
     },
     chave : {
-        types: DataTypes.STRING,
+        type: DataTypes.STRING,
         allowNull: false
     },
     status :{
-        types: DataTypes.STRING,
+        type: DataTypes.STRING,
         allowNull : false
     }
 })
+
+module.exports = Instancia
