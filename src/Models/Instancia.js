@@ -1,10 +1,11 @@
-const { types } = require("pg")
-const sequelize = require("../config/database")
-const {DataTypes, DATEONLY} = require("sequelize")
-const Empresa  = require("./Empresa")
+
+const conexao = require("../config/database")
+const {DataTypes} = require("sequelize")
 
 
-const Instancia = sequelize.define("Instacias", {
+
+
+const Instancia = conexao.define("Instacias", {
     id_instancia : {
         type: DataTypes.INTEGER,
             primaryKey: true,

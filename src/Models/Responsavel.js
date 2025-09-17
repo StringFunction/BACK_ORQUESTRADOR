@@ -1,7 +1,7 @@
-const sequelize = require("../config/database")
-const {DataTypes, DATEONLY} = require("sequelize")
+const conexao = require("../config/database")
+const {DataTypes} = require("sequelize")
 
-const Responsavel = sequelize.define("Responsavel", {
+const Responsavel = conexao.define("Responsavel", {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -32,7 +32,7 @@ const Responsavel = sequelize.define("Responsavel", {
     allowNull: true
   }
 }, {
-  tableName: "responsaveis", // nome da tabela no BD
+
   timestamps: false          // caso não queira createdAt/updatedAt
 });
 

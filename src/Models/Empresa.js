@@ -1,13 +1,12 @@
-const { defaultValueSchemable } = require("sequelize/lib/utils")
-const sequelize = require("../config/database")
-const {DataTypes, DATEONLY} = require("sequelize")
+const conexao = require("../config/database")
+const {DataTypes} = require("sequelize")
 
 // const gerarMatricula = () =>{
 //     return Math.floor(10000 + Math.random() * 999999)
 // }
 
 
-const Empresa = sequelize.define("Empresa", {
+const Empresa = conexao.define("Empresa", {
 
     cnpj : {
         type : DataTypes.STRING,

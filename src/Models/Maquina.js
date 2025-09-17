@@ -1,7 +1,7 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../config/database"); // ajuste conforme seu projeto
+const {DataTypes } = require("sequelize");
+const conexao = require("../config/database"); // ajuste conforme seu projeto
 
-const Maquina = sequelize.define("Maquina", {
+const Maquina = conexao.define("Maquina", {
   ID_MAQUINA: {
     type: DataTypes.INTEGER,
     primaryKey: true,
