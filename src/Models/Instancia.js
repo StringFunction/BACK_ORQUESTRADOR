@@ -1,7 +1,7 @@
 
 const conexao = require("../config/database")
 const {DataTypes} = require("sequelize")
-
+const Empresa = require("../Models/Empresa")
 
 
 
@@ -22,4 +22,8 @@ const Instancia = conexao.define("Instacias", {
     }
 })
 
-module.exports = Instancia
+
+
+
+
+module.exports = Instancia;

@@ -8,6 +8,7 @@ const path = require("path")
 const fs = require("fs")
 require('dotenv').config()
 require("./src/config/SincronizacaoBanco")
+require("./src/routes/rotaRpa")
 
 
 // const routesDir = path.join(__dirname, "src", "routes");

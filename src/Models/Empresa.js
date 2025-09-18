@@ -57,4 +57,4 @@ const Empresa = conexao.define("Empresa", {
      timestamps: false,
 })
 
-module.exports = Empresa
+module.exports = Empresa;
