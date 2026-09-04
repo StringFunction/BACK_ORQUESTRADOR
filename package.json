@@ -2,10 +2,10 @@
   "name": "back_orquestrador",
   "version": "1.0.0",
   "description": "Api intermediaria",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon server.js"
   },
   "author": "StringFunction",
   "license": "ISC",
@@ -14,7 +14,7 @@
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
     "mysql2": "^3.14.5",
-    "nodemon": "^3.1.10",
+    "nodemon": "^3.1.14",
     "pg": "^8.16.3",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.37.7",

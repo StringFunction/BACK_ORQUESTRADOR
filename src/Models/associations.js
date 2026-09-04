@@ -3,6 +3,7 @@ const sequelize = require("../config/database")
 const Bot = require('./bots');
 const Agendamento = require('./agendamentos');
 const Usuario = require("./usuarios")
+const Registro = require("./registro")
 
 // 1 Máquina possui vários Bots
 Maquina.hasMany(Bot, {
@@ -39,11 +40,22 @@ Agendamento.belongsTo(Bot, {
     as: 'bot'
 });
 
+Registro.hasMany(Agendamento, {
+    foreignKey: 'id_agendamento',
+
+});
+
+Agendamento.belongsTo(Registro, {
+    foreignKey: 'id_agendamento',
+
+});
+
 
 module.exports = {
     Agendamento,
     Maquina,
-    Bot
+    Bot,
+    Registro
 };
 
 
