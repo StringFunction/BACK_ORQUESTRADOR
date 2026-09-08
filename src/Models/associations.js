@@ -4,58 +4,67 @@ const Bot = require('./bots');
 const Agendamento = require('./agendamentos');
 const Usuario = require("./usuarios")
 const Registro = require("./registro")
+const Age_movimento =  require("./age_agendamento");
+const age_movimento = require('./age_agendamento');
 
 // 1 Máquina possui vários Bots
 Maquina.hasMany(Bot, {
     foreignKey: 'maquina',
-    as: 'bots'
+
 });
 
 // 1 Bot pertence a uma Máquina
 Bot.belongsTo(Maquina, {
     foreignKey: 'maquina',
-    as: 'maquinaBot'
+
 });
 
 
 Usuario.hasMany(Bot, {
     foreignKey: 'desenvolvedor',
-    as: 'bots'
+
 });
 
 Bot.belongsTo(Usuario, {
     foreignKey: 'desenvolvedor',
-    as: 'desenvolvedorBot'
+
 });
 /*********************************** */
 
 // Bot -> Agendamentos
 Bot.hasMany(Agendamento, {
     foreignKey: 'bots',
-    as: 'agendamentos'
+
 });
 
 Agendamento.belongsTo(Bot, {
     foreignKey: 'bots',
-    as: 'bot'
 });
 
-Registro.hasMany(Agendamento, {
-    foreignKey: 'id_agendamento',
-
-});
-
-Agendamento.belongsTo(Registro, {
-    foreignKey: 'id_agendamento',
+Agendamento.hasMany(Registro, {
+    foreignKey: 'agendamento',
 
 });
 
+Registro.belongsTo(Agendamento, {
+    foreignKey: 'agendamento',
+
+});
+
+
+Agendamento.hasMany(age_movimento, {
+    foreignKey : "agendamento"
+})
+Age_movimento.belongsTo(Agendamento, {
+    foreignKey: "agendamento"
+})
 
 module.exports = {
     Agendamento,
     Maquina,
     Bot,
-    Registro
+    Registro,
+    Age_movimento
 };
 
 
