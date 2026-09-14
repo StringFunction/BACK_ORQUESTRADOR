@@ -4,7 +4,7 @@ const { DataTypes, INTEGER, STRING, TEXT, TIME } = require("sequelize")
 
 
 
-const age_movimento = sequelize.define("age_movimento", {
+const age_movimento = sequelize.define("age_movimentos", {
     agendamento :{
         type : DataTypes.INTEGER
     },

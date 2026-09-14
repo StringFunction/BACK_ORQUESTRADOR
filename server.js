@@ -1,13 +1,18 @@
 require("./src/config/database")
 require("./src/Models/sincronizar")
-require("./src/routes/usuario")
-require("./src/routes/bot")
+const path = require("path")
+const fs = require("fs")
 
+const caminho = path.join(__dirname, "./src/routes")
+ fs.readdirSync(caminho).forEach(arquivo => {
+        if (arquivo.endsWith(".js")) {
+            require(path.join(caminho, arquivo));
+            console.log(`Carregado: ${arquivo}`);
+        }
+    });
 const http = require("http")
 const app = require("./src/app")
 const port = process.env.PORT || 10000
-const path = require("path")
-const fs = require("fs")
 require('dotenv').config()
 
 

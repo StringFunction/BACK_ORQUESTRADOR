@@ -2,7 +2,7 @@ const { DataTypes} =  require("sequelize")
 const seq = require("../config/database")
 
 
-const Registro = seq.define("registro", {
+const Registro = seq.define("registros", {
     id: {
         type : DataTypes.INTEGER,
         primaryKey: true,

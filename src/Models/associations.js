@@ -41,13 +41,14 @@ Agendamento.belongsTo(Bot, {
     foreignKey: 'bots',
 });
 
+
 Agendamento.hasMany(Registro, {
-    foreignKey: 'agendamento',
+    foreignKey: 'id_agendamento',
 
 });
 
 Registro.belongsTo(Agendamento, {
-    foreignKey: 'agendamento',
+    foreignKey: 'id_agendamento',
 
 });
 
