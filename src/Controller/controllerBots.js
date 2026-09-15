@@ -1,127 +1,383 @@
 const express = require("express");
 const rota = express.Router();
-const Bots   = require("../Models/bots");
-const { where } = require("sequelize");
-const Usuario = require("../Models/usuarios");
-const Maquina = require("../Models/maquinas");
+const {Maquina,Bot,Usuario} = require("../database/models")
 
 // =====================================================
 // INSERT - BOT
 // =====================================================
-rota.post("/cadastra_bot", async (req,res) => {
-    try{
 
-    
-        console.log("Cadastrando novo bot");
-        const consulta_Bot = await  Bots.findAll({
-            where : {
-                nome : req.body.nome
+rota.post("/", async (req, res) => {
+
+    const inicio = Date.now();
+
+    console.log("\n====================================================");
+    console.log("🤖 [BOT] POST /cadastra_bot");
+    console.log("⏰ Data:", new Date().toLocaleString());
+    console.log("🌐 IP:", req.ip);
+    console.log("====================================================");
+
+    try {
+
+        console.log("📥 [BOT] Dados recebidos:");
+        console.log(req.body);
+
+
+        // =================================================
+        // VALIDAÇÃO
+        // =================================================
+
+        console.log("🔎 [BOT] Verificando se o bot já existe...");
+
+        const consulta_Bot = await Bot.findAll({
+            where: {
+                nome: req.body.nome
             }
-        })
-        console.log(consulta_Bot);
-        
-        if (!consulta_Bot) {
-            console.log("Bot ja se encontra cadastrado");
-            
+        });
+
+
+        console.log(
+            `📊 [BOT] Quantidade encontrada: ${consulta_Bot.length}`
+        );
+
+
+        // =================================================
+        // BOT JÁ EXISTE
+        // =================================================
+
+        if (consulta_Bot.length > 0) {
+
+            console.warn(
+                `⚠️ [BOT] Bot "${req.body.nome}" já está cadastrado.`
+            );
+
+            console.log("📋 [BOT] Registros encontrados:");
+            console.log(consulta_Bot.map(bot => bot.toJSON()));
+
+
             return res.status(409).json({
-                status : false,
-                mensagem : "Bots ja cadastrado",
-                dados : consulta_Bot
-            })
+                status: false,
+                mensagem: "Bot já cadastrado",
+                dados: consulta_Bot
+            });
 
         }
-        const cadastrar = await Bots.create(req.body)
-        return res.status(200).json({
-            status : true,
-            mensagem : "bots registrado",
-            dados : cadastrar
-        })
-    } catch (erro) {
-        console.log("Erro ao tentar registrar novo bot" + erro);
-        return res.status(500).json({
-            status : false,
-            mensagem : "Erro no tentar registrar novo bot",
-        
-        })
-
-        
-    }
 
 
-})
-// =====================================================
-// SELECT - BUSCAR TODOS OS BOTS COM INNER
-// =====================================================
-rota.get("/allbots", async(req,res) => {
-    try{ 
-        console.log("Consultando todos os bots");
-        const todos = await Bots.findAll({
-            include : [{
-                model : Usuario,
-                required : true,
-                as : "desenvolvedorBot"
-            },
-        {
-            model : Maquina,
-            required : true,
-            as :"maquinaBot"
-        }
-    ]
-        })
+        console.log(
+            `✅ [BOT] Bot "${req.body.nome}" ainda não está cadastrado.`
+        );
 
-        return res.status(200).json({
-            status :true,
-            mensagem : "dados encontrados",
-            dados : todos
-        })
-        
 
+        // =================================================
+        // CADASTRO
+        // =================================================
+
+        console.log("💾 [BOT] Cadastrando bot no banco...");
+
+        const cadastrar = await Bot.create(req.body);
+
+
+        console.log(
+            `✅ [BOT] Bot cadastrado com sucesso. ID: ${cadastrar.id}`
+        );
+
+        console.log("📋 [BOT] Dados cadastrados:");
+        console.log(cadastrar.toJSON());
+
+        console.log(
+            `⏱️ [BOT] Tempo total: ${Date.now() - inicio}ms`
+        );
+
+
+        return res.status(201).json({
+            status: true,
+            mensagem: "Bot registrado",
+            dados: cadastrar
+        });
 
 
     } catch (erro) {
-        console.log(erro);
-        
+
+        console.error("❌ [BOT] ERRO AO CADASTRAR BOT");
+        console.error("Mensagem:", erro.message);
+        console.error("Stack:", erro.stack);
+
+        console.log(
+            `⏱️ [BOT] Tempo até erro: ${Date.now() - inicio}ms`
+        );
+
+
         return res.status(500).json({
-            status :false,
-            mensagem : erro,
- 
-        })
-        
+            status: false,
+            mensagem: "Erro ao tentar registrar novo bot",
+            erro: erro.message
+        });
+
     }
-    
-})
+
+});
+
 
 // =====================================================
-// UPDATE - ATUALIZAR BOT DE ACORDO COM MATRICULA
+// SELECT - BUSCAR TODOS OS BOTS COM INNER JOIN
 // =====================================================
 
-rota.put("/atualizar", async (req,res) => {
-    console.log("Atualizando Bots");
-    try { 
-        const atualizar =  await Bots.update(req.body,{
-            where : {
-                id : req.body.id
+rota.get("/", async (req, res) => {
+
+    const inicio = Date.now();
+
+    console.log("\n====================================================");
+    console.log("🤖 [BOT] GET /allbots");
+    console.log("⏰ Data:", new Date().toLocaleString());
+    console.log("🌐 IP:", req.ip);
+    console.log("====================================================");
+
+
+    try {
+
+        console.log("🔎 [BOT] Consultando todos os bot...");
+
+        console.log("🔗 [BOT] Realizando INNER JOIN:");
+        console.log("   ├── Usuario");
+        console.log("   └── Maquina");
+
+
+        const todos = await Bot.findAll({
+
+            include: [
+
+                {
+                    model: Usuario,
+                    required: true,
+      
+                },
+
+                {
+                    model: Maquina,
+                    required: true,
+   
+                }
+
+            ]
+
+        });
+
+
+        console.log(
+            `📊 [BOT] ${todos.length} bot(s) encontrado(s).`
+        );
+
+
+        if (todos.length === 0) {
+
+            console.warn(
+                "⚠️ [BOT] Nenhum bot encontrado."
+            );
+
+        } else {
+
+            console.log("✅ [BOT] Dados encontrados com sucesso.");
+
+            console.log("📋 [BOT] IDs encontrados:");
+
+            console.log(
+                todos.map(bot => bot.id)
+            );
+
+        }
+
+
+        console.log(
+            `⏱️ [BOT] Tempo total: ${Date.now() - inicio}ms`
+        );
+
+
+        return res.status(200).json({
+            status: true,
+            mensagem: "Dados encontrados",
+            dados: todos
+        });
+
+
+    } catch (erro) {
+
+        console.error("❌ [BOT] ERRO AO CONSULTAR BOTS");
+        console.error("Mensagem:", erro.message);
+        console.error("Stack:", erro.stack);
+
+
+        console.log(
+            `⏱️ [BOT] Tempo até erro: ${Date.now() - inicio}ms`
+        );
+
+
+        return res.status(500).json({
+            status: false,
+            mensagem: "Erro ao consultar bots",
+            erro: erro.message
+        });
+
+    }
+
+});
+
+
+// =====================================================
+// UPDATE - ATUALIZAR BOT
+// =====================================================
+
+rota.put("/atualizar", async (req, res) => {
+
+    const inicio = Date.now();
+
+    console.log("\n====================================================");
+    console.log("🤖 [BOT] PUT /atualizar");
+    console.log("⏰ Data:", new Date().toLocaleString());
+    console.log("🌐 IP:", req.ip);
+    console.log("====================================================");
+
+
+    try {
+
+        console.log("📥 [BOT] Dados recebidos:");
+        console.log(req.body);
+
+
+        // =================================================
+        // VALIDAÇÃO DO ID
+        // =================================================
+
+        if (!req.body.id) {
+
+            console.warn(
+                "⚠️ [BOT] ID do bot não informado."
+            );
+
+
+            return res.status(400).json({
+                status: false,
+                mensagem: "ID do bot é obrigatório"
+            });
+
+        }
+
+
+        const id = req.body.id;
+
+
+        console.log(
+            `🔎 [BOT] Procurando bot ID: ${id}`
+        );
+
+
+        // =================================================
+        // BUSCA BOT
+        // =================================================
+
+        const bot = await Bot.findByPk(id);
+
+
+        if (!bot) {
+
+            console.warn(
+                `⚠️ [BOT] Bot ID ${id} não encontrado.`
+            );
+
+
+            return res.status(404).json({
+                status: false,
+                mensagem: "Bot não encontrado"
+            });
+
+        }
+
+
+        console.log("✅ [BOT] Bot encontrado.");
+
+        console.log("📋 [BOT] Dados atuais:");
+
+        console.log(
+            bot.toJSON()
+        );
+
+
+        // =================================================
+        // ATUALIZAÇÃO
+        // =================================================
+
+        console.log(
+            `💾 [BOT] Atualizando bot ID: ${id}`
+        );
+
+
+        const atualizar = await Bot.update(
+            req.body,
+            {
+                where: {
+                    id: id
+                }
             }
-        })
-        console.log("Atualizacao realizada com sucesso!!!");
-        res.status(200).json({
-            status : true,
-            mensagem : "Bot atualizado com sucesso!!",
-            dados : atualizar
-        })
-        
+        );
+
+
+        console.log(
+            `✅ [BOT] Atualização realizada com sucesso.`
+        );
+
+        console.log(
+            `📊 [BOT] Resultado Sequelize:`
+        );
+
+        console.log(atualizar);
+
+
+        // =================================================
+        // BUSCA DADOS ATUALIZADOS
+        // =================================================
+
+        const botAtualizado = await Bot.findByPk(id);
+
+
+        console.log("📋 [BOT] Dados após atualização:");
+
+        console.log(
+            botAtualizado.toJSON()
+        );
+
+
+        console.log(
+            `⏱️ [BOT] Tempo total: ${Date.now() - inicio}ms`
+        );
+
+
+        return res.status(200).json({
+            status: true,
+            mensagem: "Bot atualizado com sucesso!",
+            dados: botAtualizado
+        });
 
 
     } catch (erro) {
-              res.status(500).json({
-            status : false,
-            mensagem : "Falha atualizar bot!",
-            
-        })
-        
+
+        console.error("❌ [BOT] ERRO AO ATUALIZAR BOT");
+        console.error("Mensagem:", erro.message);
+        console.error("Stack:", erro.stack);
+
+
+        console.log(
+            `⏱️ [BOT] Tempo até erro: ${Date.now() - inicio}ms`
+        );
+
+
+        return res.status(500).json({
+            status: false,
+            mensagem: "Falha ao atualizar bot!",
+            erro: erro.message
+        });
 
     }
-    
 
-})
-module.exports = rota
+});
+
+
+module.exports = rota;
