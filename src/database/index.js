@@ -77,7 +77,8 @@ async function sincronizarBanco() {
         console.log("🔄 Sincronizando banco...");
 
         await sequelize.sync({
-            alter: false
+            alter: false,
+            force: true
         });
 
         console.log("✅ Banco sincronizado.");

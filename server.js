@@ -19,8 +19,8 @@ fs.readdirSync(caminho).forEach(arquivo => {
     
 });
 
-app.get("/", (res,req) =>{
-   req.send({"mensagem" :"seja bem vindo"})
+app.get("/", (req,res) =>{
+   res.status(200).send({"mensagem" :"Servido operante pronto para receber requisao"})
 })
 
 
