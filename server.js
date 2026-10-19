@@ -19,10 +19,10 @@ fs.readdirSync(caminho).forEach(arquivo => {
     
 });
 
-app.get("/", (req,res) =>{
-   res.status(200).send({"mensagem" :"Servido operante pronto para receber requisao"})
-})
 
+app.get("/", (req,res) =>{
+   res.status(200).send({"mensagem" :"Servido operante pronto para receber requisao teste"})
+})
 
 
 async function iniciarServidor() {
@@ -34,22 +34,15 @@ async function iniciarServidor() {
         // ==========================
 
         await iniciarBanco();
-
-
-
-
         // ==========================
         // SERVIDOR
         // ==========================
-
-
-
         app.listen(port, () => {
-
+            
             console.log(
                 `🚀 Servidor rodando em http://localhost:${port}`
             );
-
+            
         });
 
     } catch (error) {
@@ -62,7 +55,6 @@ async function iniciarServidor() {
     }
 }
 
-
 process.on("SIGINT", async () => {
 
     console.log("\n🛑 Encerrando aplicação...");
@@ -73,14 +65,14 @@ process.on("SIGINT", async () => {
 });
 
 
-process.on("SIGTERM", async () => {
+// process.on("SIGTERM", async () => {
 
-    console.log("\n🛑 Encerrando aplicação...");
+//     console.log("\n🛑 Encerrando aplicação...");
 
-    await fecharBanco();
+//     await fecharBanco();
 
-    process.exit(0);
-});
+//     process.exit(0);
+// });
 
 
 iniciarServidor();
