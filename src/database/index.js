@@ -2,7 +2,7 @@ const sequelize = require("../config/database");
 const models = require("./models");
 const configurarAssociacoes = require("./associations");
 
-
+//CONECTA AO BANCO DE DADOS
 async function testarConexao() {
 
     console.log("🔄 Testando conexão com banco...");
@@ -24,7 +24,7 @@ async function testarConexao() {
     }
 }
 
-
+//CARREGAR OS MEU MODELOS DE TABELAS
 async function carregarModels() {
 
     try {
@@ -50,7 +50,7 @@ async function carregarModels() {
     }
 }
 
-
+//CARREGAR AS MINHAS ASSOCIACOES DO BANCO
 async function carregarAssociacoes() {
 
     try {
@@ -69,7 +69,7 @@ async function carregarAssociacoes() {
     }
 }
 
-
+// SINCRONIZAR COM BANCO DE DADOS
 async function sincronizarBanco() {
 
     try {
@@ -78,7 +78,7 @@ async function sincronizarBanco() {
 
         await sequelize.sync({
             alter: false,
-            force: true
+  
         });
 
         console.log("✅ Banco sincronizado.");

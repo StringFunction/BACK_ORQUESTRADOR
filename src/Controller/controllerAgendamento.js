@@ -4,6 +4,7 @@ const rota = express.Router();
 const Agendamento = require("../Models/agendamentos");
 const Bot = require("../Models/bots");
 const Maquina = require("../Models/maquinas");
+const Usuario = require("../Models/usuarios")
 
 // ======================================================
 // CREATE - CRIAR AGENDAMENTO
@@ -159,8 +160,12 @@ rota.get("/", async (req, res) => {
             include: {
                 model: Bot,
 
+
                 include: {
                     model: Maquina
+                },
+                include : {
+                    model : Usuario
                 }
             }
         });
